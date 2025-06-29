@@ -1,6 +1,10 @@
 import express, { Request, Response, NextFunction } from "express";
+import dotenv from "dotenv";
+
 const app = express();
-const port = 3000;
+dotenv.config();
+
+const PORT = process.env.PORT || 3001;
 
 app.get("/", (req, res) => {
   res.status(200).send({
@@ -12,6 +16,6 @@ app.get("/", (req, res) => {
   });
 });
 
-app.listen(port, () => {
-  console.log(`Server is running at http://localhost:${port}`);
+app.listen(PORT, () => {
+  console.log(`Server is running at http://localhost:${PORT}`);
 });
