@@ -1,4 +1,6 @@
 import { Request, Response } from "express";
+import path from "path";
+import fs from "fs/promises";
 const addItem = async (req: Request, res: Response) => {
   try {
     const { name, price, description } = req.body;
@@ -21,12 +23,10 @@ const addItem = async (req: Request, res: Response) => {
 
 const getAllItems = async (req: Request, res: Response) => {
   try {
-    // Simulate fetching all products from database
-    const products = [
-      { id: 1, name: "Product 1", price: 10, description: "Description 1" },
-      { id: 2, name: "Product 2", price: 20, description: "Description 2" },
-      { id: 3, name: "Product 3", price: 30, description: "Description 3" },
-    ];
+    // Read products from items.json
+    const filePath = path.join(__dirname, "../database/items.json");
+    const data = await fs.readFile(filePath, "utf-8");
+    const products = JSON.parse(data);
 
     // Respond with all products
     return res.status(200).json(products);
