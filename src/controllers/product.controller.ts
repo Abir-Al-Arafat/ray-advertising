@@ -75,8 +75,13 @@ const updateItemById = async (req: Request, res: Response) => {
 const deleteItemById = async (req: Request, res: Response) => {
   try {
     const { id } = req.params;
-    // Simulate deleting product by ID from database
-    // Respond with a success message
+    const items = await readItems();
+    const index = items.findIndex((item: any) => item.id === Number(id));
+    if (index === -1) {
+      return res.status(404).json({ message: "Product not found" });
+    }
+    items.splice(index, 1);
+    await writeItems(items);
     return res.status(200).json({ message: "Product deleted successfully" });
   } catch (error) {
     console.error("Error deleting product:", error);
