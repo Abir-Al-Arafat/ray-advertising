@@ -16,5 +16,8 @@
   "bugs": {
     "url": "https://github.com/Abir-Al-Arafat/ray-advertising/issues"
   },
-  "homepage": "https://github.com/Abir-Al-Arafat/ray-advertising#readme"
+  "homepage": "https://github.com/Abir-Al-Arafat/ray-advertising#readme",
+  "dependencies": {
+    "express": "^5.1.0"
+  }
 }
