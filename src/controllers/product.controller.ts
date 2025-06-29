@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-const addProduct = async (req: Request, res: Response) => {
+const addItem = async (req: Request, res: Response) => {
   try {
     const { name, price, description } = req.body;
 
@@ -19,7 +19,7 @@ const addProduct = async (req: Request, res: Response) => {
   }
 };
 
-const getAllProducts = async (req: Request, res: Response) => {
+const getAllItems = async (req: Request, res: Response) => {
   try {
     // Simulate fetching all products from database
     const products = [
@@ -36,7 +36,7 @@ const getAllProducts = async (req: Request, res: Response) => {
   }
 };
 
-const getProductById = async (req: Request, res: Response) => {
+const getItemById = async (req: Request, res: Response) => {
   try {
     const { id } = req.params;
     // Simulate fetching product by ID from database
@@ -55,7 +55,7 @@ const getProductById = async (req: Request, res: Response) => {
   }
 };
 
-const updateProductById = async (req: Request, res: Response) => {
+const updateItemById = async (req: Request, res: Response) => {
   try {
     const { id } = req.params;
     const { name, price, description } = req.body;
@@ -80,10 +80,4 @@ const deleteItemById = async (req: Request, res: Response) => {
   }
 };
 
-export {
-  addProduct,
-  getAllProducts,
-  getProductById,
-  updateProductById,
-  deleteItemById,
-};
+export { addItem, getAllItems, getItemById, updateItemById, deleteItemById };

@@ -3,27 +3,27 @@ import express from "express";
 const routes = express();
 
 import {
-  addProduct,
-  getAllProducts,
-  getProductById,
-  updateProductById,
+  addItem,
+  getAllItems,
+  getItemById,
+  updateItemById,
   deleteItemById,
 } from "../controllers/product.controller";
 
 routes.post("/", (req, res) => {
-  addProduct(req, res);
+  addItem(req, res);
 });
 
 routes.get("/", (req, res) => {
-  getAllProducts(req, res);
+  getAllItems(req, res);
 });
 
 routes.get("/:id", (req, res) => {
-  getProductById(req, res);
+  getItemById(req, res);
 });
 
 routes.put("/:id", (req, res) => {
-  updateProductById(req, res);
+  updateItemById(req, res);
 });
 
 routes.delete("/:id", (req, res) => {
