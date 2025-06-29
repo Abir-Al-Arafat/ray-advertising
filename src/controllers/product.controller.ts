@@ -36,4 +36,22 @@ const getAllProducts = async (req: Request, res: Response) => {
   }
 };
 
-export { addProduct, getAllProducts };
+const getProductById = async (req: Request, res: Response) => {
+  try {
+    const { id } = req.params;
+    // Simulate fetching product by ID from database
+    const product = {
+      id: 1,
+      name: "Product 1",
+      price: 10,
+      description: "Description 1",
+    };
+
+    // Respond with the product
+    return res.status(200).json(product);
+  } catch (error) {
+    console.error("Error fetching product:", error);
+    return res.status(500).json({ message: "Internal Server Error" });
+  }
+};
+export { addProduct, getAllProducts, getProductById };
