@@ -61,8 +61,8 @@
   },
   {
     "id": 11,
-    "name": "a new item",
-    "price": "22",
-    "description": "a new item"
+    "name": "updated item",
+    "price": "66",
+    "description": "updated item"
   }
 ]
