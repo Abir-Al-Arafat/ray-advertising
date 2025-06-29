@@ -67,4 +67,23 @@ const updateProductById = async (req: Request, res: Response) => {
     return res.status(500).json({ message: "Internal Server Error" });
   }
 };
-export { addProduct, getAllProducts, getProductById, updateProductById };
+
+const deleteItemById = async (req: Request, res: Response) => {
+  try {
+    const { id } = req.params;
+    // Simulate deleting product by ID from database
+    // Respond with a success message
+    return res.status(200).json({ message: "Product deleted successfully" });
+  } catch (error) {
+    console.error("Error deleting product:", error);
+    return res.status(500).json({ message: "Internal Server Error" });
+  }
+};
+
+export {
+  addProduct,
+  getAllProducts,
+  getProductById,
+  updateProductById,
+  deleteItemById,
+};

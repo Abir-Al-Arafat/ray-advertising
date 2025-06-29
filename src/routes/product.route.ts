@@ -7,6 +7,7 @@ import {
   getAllProducts,
   getProductById,
   updateProductById,
+  deleteItemById,
 } from "../controllers/product.controller";
 
 routes.post("/", (req, res) => {
@@ -23,6 +24,10 @@ routes.get("/:id", (req, res) => {
 
 routes.put("/:id", (req, res) => {
   updateProductById(req, res);
+});
+
+routes.delete("/:id", (req, res) => {
+  deleteItemById(req, res);
 });
 
 export default routes;
