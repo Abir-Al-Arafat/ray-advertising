@@ -14,6 +14,11 @@ app.get("/", (req, res) => {
   });
 });
 
+// ✅ Handle 404 Routes
+app.use((req, res) => {
+  res.status(400).send({ message: "Route does not exist" });
+});
+
 // ✅ Handle Global Errors
 app.use((err: SyntaxError, req: Request, res: Response, next: NextFunction) => {
   console.error(err);
