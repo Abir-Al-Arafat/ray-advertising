@@ -4,8 +4,6 @@ import dotenv from "dotenv";
 const app = express();
 dotenv.config();
 
-const PORT = process.env.PORT || 3001;
-
 app.get("/", (req, res) => {
   res.status(200).send({
     name: "API Developer Skill Test",
@@ -15,6 +13,14 @@ app.get("/", (req, res) => {
     status: "success",
   });
 });
+
+// ✅ Handle Global Errors
+app.use((err: SyntaxError, req: Request, res: Response, next: NextFunction) => {
+  console.error(err);
+  res.status(500).send({ message: "Internal Server Error" });
+});
+
+const PORT = process.env.PORT || 3001;
 
 app.listen(PORT, () => {
   console.log(`Server is running at http://localhost:${PORT}`);
