@@ -14,6 +14,21 @@ app.get("/", (req, res) => {
   });
 });
 
+// ✅ Handle Invalid JSON Errors
+app.use(
+  (
+    err: SyntaxError & { status?: number; body?: any },
+    req: Request,
+    res: Response,
+    next: NextFunction
+  ) => {
+    if (err instanceof SyntaxError && err.status === 400 && "body" in err) {
+      res.status(400).send({ message: "Invalid JSON format" });
+    }
+    next();
+  }
+);
+
 // ✅ Handle 404 Routes
 app.use((req, res) => {
   res.status(400).send({ message: "Route does not exist" });
