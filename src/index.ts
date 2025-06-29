@@ -1,6 +1,8 @@
 import express, { Request, Response, NextFunction } from "express";
 import dotenv from "dotenv";
 
+import productRouter from "./routes/product.route"; // Import product routes
+
 const app = express();
 dotenv.config();
 
@@ -22,6 +24,8 @@ app.use(
     next();
   }
 );
+
+app.use("/items", productRouter);
 
 app.get("/", (req, res) => {
   res.status(200).send({
