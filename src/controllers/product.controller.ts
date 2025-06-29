@@ -1,6 +1,9 @@
 import { Request, Response } from "express";
 import path from "path";
 import fs from "fs/promises";
+
+import { readItems, writeItems } from "../utilities/helpers";
+
 const addItem = async (req: Request, res: Response) => {
   try {
     const { name, price, description } = req.body;
@@ -23,13 +26,8 @@ const addItem = async (req: Request, res: Response) => {
 
 const getAllItems = async (req: Request, res: Response) => {
   try {
-    // Read products from items.json
-    const filePath = path.join(__dirname, "../database/items.json");
-    const data = await fs.readFile(filePath, "utf-8");
-    const products = JSON.parse(data);
-
-    // Respond with all products
-    return res.status(200).json(products);
+    const items = await readItems();
+    return res.status(200).json(items);
   } catch (error) {
     console.error("Error fetching products:", error);
     return res.status(500).json({ message: "Internal Server Error" });
