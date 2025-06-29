@@ -21,6 +21,7 @@
   },
   "homepage": "https://github.com/Abir-Al-Arafat/ray-advertising#readme",
   "dependencies": {
+    "dotenv": "^17.0.0",
     "express": "^5.1.0"
   },
   "devDependencies": {
