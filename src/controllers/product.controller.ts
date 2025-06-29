@@ -8,15 +8,20 @@ const addItem = async (req: Request, res: Response) => {
   try {
     const { name, price, description } = req.body;
 
-    // Validate required fields
     if (!name || !price) {
       return res.status(400).json({ message: "Name and price are required" });
     }
 
-    // Simulate adding product to database
-    const newProduct = { id: Date.now(), name, price, description };
+    const items = await readItems();
+    const newProduct = {
+      id: items.length ? Math.max(...items.map((i: any) => i.id)) + 1 : 1,
+      name,
+      price,
+      description,
+    };
+    items.push(newProduct);
+    await writeItems(items);
 
-    // Respond with the created product
     return res.status(201).json(newProduct);
   } catch (error) {
     console.error("Error adding product:", error);

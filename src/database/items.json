@@ -58,5 +58,11 @@
     "name": "Portable SSD",
     "price": 99.99,
     "description": "1TB portable SSD for fast and reliable storage."
+  },
+  {
+    "id": 11,
+    "name": "a new item",
+    "price": "22",
+    "description": "a new item"
   }
 ]
