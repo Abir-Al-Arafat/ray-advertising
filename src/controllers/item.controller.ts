@@ -95,7 +95,19 @@ const updateItemById = async (req: Request, res: Response) => {
         .send(failure("Failed to update data", validation[0].msg));
     }
     const { id } = req.params;
+    if (
+      !req.body ||
+      (typeof req.body === "object" &&
+        !("name" in req.body) &&
+        !("price" in req.body) &&
+        !("description" in req.body))
+    ) {
+      return res
+        .status(HTTP_STATUS.BAD_REQUEST)
+        .send(failure("No update data provided"));
+    }
     const { name, price, description } = req.body;
+
     const items: IItem[] = await readItems();
     const index = items.findIndex((item: IItem) => item.id === Number(id));
     if (index === -1) {
