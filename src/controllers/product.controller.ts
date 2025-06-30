@@ -1,6 +1,5 @@
 import { Request, Response } from "express";
-import path from "path";
-import fs from "fs/promises";
+import HTTP_STATUS from "../constants/statusCodes";
 
 import { readItems, writeItems } from "../utilities/helpers";
 
@@ -9,7 +8,9 @@ const addItem = async (req: Request, res: Response) => {
     const { name, price, description } = req.body;
 
     if (!name || !price) {
-      return res.status(400).json({ message: "Name and price are required" });
+      return res
+        .status(HTTP_STATUS.BAD_REQUEST)
+        .json({ message: "Name and price are required" });
     }
 
     const items = await readItems();
@@ -22,20 +23,29 @@ const addItem = async (req: Request, res: Response) => {
     items.push(newProduct);
     await writeItems(items);
 
-    return res.status(201).json(newProduct);
+    return res.status(HTTP_STATUS.CREATED).json(newProduct);
   } catch (error) {
     console.error("Error adding product:", error);
-    return res.status(500).json({ message: "Internal Server Error" });
+    return res
+      .status(HTTP_STATUS.INTERNAL_SERVER_ERROR)
+      .json({ message: "Internal Server Error" });
   }
 };
 
 const getAllItems = async (req: Request, res: Response) => {
   try {
     const items = await readItems();
-    return res.status(200).json(items);
+    if (!items || !items.length) {
+      return res
+        .status(HTTP_STATUS.NOT_FOUND)
+        .json({ message: "No items found" });
+    }
+    return res.status(HTTP_STATUS.OK).json(items);
   } catch (error) {
-    console.error("Error fetching products:", error);
-    return res.status(500).json({ message: "Internal Server Error" });
+    console.error("Error fetching items:", error);
+    return res
+      .status(HTTP_STATUS.INTERNAL_SERVER_ERROR)
+      .json({ message: "Internal Server Error" });
   }
 };
 
@@ -45,12 +55,16 @@ const getItemById = async (req: Request, res: Response) => {
     const items = await readItems();
     const product = items.find((item: any) => item.id === Number(id));
     if (!product) {
-      return res.status(404).json({ message: "Product not found" });
+      return res
+        .status(HTTP_STATUS.NOT_FOUND)
+        .json({ message: "Product not found" });
     }
-    return res.status(200).json(product);
+    return res.status(HTTP_STATUS.OK).json(product);
   } catch (error) {
     console.error("Error fetching product:", error);
-    return res.status(500).json({ message: "Internal Server Error" });
+    return res
+      .status(HTTP_STATUS.INTERNAL_SERVER_ERROR)
+      .json({ message: "Internal Server Error" });
   }
 };
 
@@ -61,14 +75,18 @@ const updateItemById = async (req: Request, res: Response) => {
     const items = await readItems();
     const index = items.findIndex((item: any) => item.id === Number(id));
     if (index === -1) {
-      return res.status(404).json({ message: "Product not found" });
+      return res
+        .status(HTTP_STATUS.NOT_FOUND)
+        .json({ message: "Product not found" });
     }
     items[index] = { ...items[index], name, price, description };
     await writeItems(items);
-    return res.status(200).json(items[index]);
+    return res.status(HTTP_STATUS.OK).json(items[index]);
   } catch (error) {
     console.error("Error updating product:", error);
-    return res.status(500).json({ message: "Internal Server Error" });
+    return res
+      .status(HTTP_STATUS.INTERNAL_SERVER_ERROR)
+      .json({ message: "Internal Server Error" });
   }
 };
 
@@ -78,14 +96,20 @@ const deleteItemById = async (req: Request, res: Response) => {
     const items = await readItems();
     const index = items.findIndex((item: any) => item.id === Number(id));
     if (index === -1) {
-      return res.status(404).json({ message: "Product not found" });
+      return res
+        .status(HTTP_STATUS.NOT_FOUND)
+        .json({ message: "Product not found" });
     }
     items.splice(index, 1);
     await writeItems(items);
-    return res.status(200).json({ message: "Product deleted successfully" });
+    return res
+      .status(HTTP_STATUS.OK)
+      .json({ message: "Product deleted successfully" });
   } catch (error) {
     console.error("Error deleting product:", error);
-    return res.status(500).json({ message: "Internal Server Error" });
+    return res
+      .status(HTTP_STATUS.INTERNAL_SERVER_ERROR)
+      .json({ message: "Internal Server Error" });
   }
 };
 
