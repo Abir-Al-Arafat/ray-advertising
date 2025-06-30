@@ -55,6 +55,15 @@ const itemValidator = {
       .bail()
       .isString()
       .withMessage("description must be a string"),
+    param("id")
+      .exists()
+      .withMessage("id must be provided")
+      .bail()
+      .notEmpty()
+      .withMessage("id cannot be empty")
+      .bail()
+      .isInt()
+      .withMessage("id must be an integer"),
   ],
   id: [
     param("id")
