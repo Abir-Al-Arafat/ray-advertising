@@ -1,0 +1,62 @@
+[
+  {
+    "id": 1,
+    "name": "Wireless Mouse",
+    "price": 25.99,
+    "description": "A comfortable wireless mouse with ergonomic design."
+  },
+  {
+    "id": 2,
+    "name": "Mechanical Keyboard",
+    "price": 79.99,
+    "description": "A mechanical keyboard with customizable RGB lighting."
+  },
+  {
+    "id": 3,
+    "name": "HD Monitor",
+    "price": 149.99,
+    "description": "24-inch full HD monitor with ultra-thin bezels."
+  },
+  {
+    "id": 4,
+    "name": "USB-C Hub",
+    "price": 39.99,
+    "description": "Multi-port USB-C hub for laptops and tablets."
+  },
+  {
+    "id": 5,
+    "name": "Bluetooth Speaker",
+    "price": 59.99,
+    "description": "Portable Bluetooth speaker with deep bass and long battery life."
+  },
+  {
+    "id": 6,
+    "name": "Webcam",
+    "price": 89.99,
+    "description": "1080p HD webcam with built-in microphone."
+  },
+  {
+    "id": 7,
+    "name": "Gaming Headset",
+    "price": 129.99,
+    "description": "Over-ear gaming headset with surround sound."
+  },
+  {
+    "id": 8,
+    "name": "Desk Lamp",
+    "price": 45.99,
+    "description": "LED desk lamp with adjustable brightness and color temperature."
+  },
+  {
+    "id": 9,
+    "name": "Laptop Stand",
+    "price": 35.99,
+    "description": "Adjustable laptop stand for ergonomic viewing angles."
+  },
+  {
+    "id": 10,
+    "name": "Portable SSD",
+    "price": 99.99,
+    "description": "1TB portable SSD for fast and reliable storage."
+  }
+]
