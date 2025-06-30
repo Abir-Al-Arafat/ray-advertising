@@ -5,6 +5,8 @@ import { success, failure } from "../utilities/response";
 
 import { readItems, writeItems } from "../utilities/helpers";
 
+import { IItem } from "../interfaces/item.interface";
+
 const addItem = async (req: Request, res: Response) => {
   try {
     const validation = validationResult(req).array();
@@ -16,27 +18,21 @@ const addItem = async (req: Request, res: Response) => {
     }
     const { name, price, description } = req.body;
 
-    if (!name || !price) {
-      return res
-        .status(HTTP_STATUS.BAD_REQUEST)
-        .send(failure("Name and price are required"));
-    }
-
-    const items = await readItems();
-    const newProduct = {
+    const items: IItem[] = await readItems();
+    const newItem = {
       id: items.length ? Math.max(...items.map((i: any) => i.id)) + 1 : 1,
       name,
       price,
       description,
     };
-    items.push(newProduct);
+    items.push(newItem);
     await writeItems(items);
 
     return res
       .status(HTTP_STATUS.CREATED)
-      .send(success("Product added successfully", newProduct));
+      .send(success("item added successfully", newItem));
   } catch (error: any) {
-    console.error("Error adding product:", error);
+    console.error("Error adding item:", error);
     return res
       .status(HTTP_STATUS.INTERNAL_SERVER_ERROR)
       .send(failure("Internal Server Error", error));
@@ -45,10 +41,11 @@ const addItem = async (req: Request, res: Response) => {
 
 const getAllItems = async (req: Request, res: Response) => {
   try {
-    const items = await readItems();
+    const items: IItem[] = await readItems();
     if (!items || !items.length) {
       return res.status(HTTP_STATUS.NOT_FOUND).send(failure("No items found"));
     }
+
     return res
       .status(HTTP_STATUS.OK)
       .send(success("Items fetched successfully", items));
@@ -70,14 +67,16 @@ const getItemById = async (req: Request, res: Response) => {
         .send(failure("Failed to add data", validation[0].msg));
     }
     const { id } = req.params;
-    const items = await readItems();
-    const item = items.find((item: any) => item.id === Number(id));
+    const items: IItem[] = await readItems();
+    const item: IItem | undefined = items.find(
+      (item) => item.id === Number(id)
+    );
     if (!item) {
       return res.status(HTTP_STATUS.NOT_FOUND).send(failure("item not found"));
     }
     return res
       .status(HTTP_STATUS.OK)
-      .send(success("item fetched successfully", item));
+      .send(success<IItem>("item fetched successfully", item));
   } catch (error: any) {
     console.error("Error fetching item:", error);
     return res
@@ -97,8 +96,8 @@ const updateItemById = async (req: Request, res: Response) => {
     }
     const { id } = req.params;
     const { name, price, description } = req.body;
-    const items = await readItems();
-    const index = items.findIndex((item: any) => item.id === Number(id));
+    const items: IItem[] = await readItems();
+    const index = items.findIndex((item: IItem) => item.id === Number(id));
     if (index === -1) {
       return res
         .status(HTTP_STATUS.NOT_FOUND)
@@ -132,7 +131,7 @@ const deleteItemById = async (req: Request, res: Response) => {
         .send(failure("Failed to delete data", validation[0].msg));
     }
     const { id } = req.params;
-    const items = await readItems();
+    const items: IItem[] = await readItems();
     const index = items.findIndex((item: any) => item.id === Number(id));
     if (index === -1) {
       return res.status(HTTP_STATUS.NOT_FOUND).send(failure("item not found"));

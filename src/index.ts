@@ -1,7 +1,7 @@
 import express, { Request, Response, NextFunction } from "express";
 import dotenv from "dotenv";
 
-import productRouter from "./routes/product.route"; // Import product routes
+import productRouter from "./routes/item.route"; // Import product routes
 
 const app = express();
 dotenv.config();

@@ -10,7 +10,7 @@ import {
   getItemById,
   updateItemById,
   deleteItemById,
-} from "../controllers/product.controller";
+} from "../controllers/item.controller";
 
 routes.post("/", itemValidator.create, (req: Request, res: Response) => {
   addItem(req, res);
