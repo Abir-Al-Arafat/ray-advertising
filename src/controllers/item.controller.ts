@@ -99,9 +99,7 @@ const updateItemById = async (req: Request, res: Response) => {
     const items: IItem[] = await readItems();
     const index = items.findIndex((item: IItem) => item.id === Number(id));
     if (index === -1) {
-      return res
-        .status(HTTP_STATUS.NOT_FOUND)
-        .send(failure("Product not found"));
+      return res.status(HTTP_STATUS.NOT_FOUND).send(failure("item not found"));
     }
     items[index] = {
       ...items[index],
@@ -112,9 +110,9 @@ const updateItemById = async (req: Request, res: Response) => {
     await writeItems(items);
     return res
       .status(HTTP_STATUS.OK)
-      .send(success("Product updated successfully", items[index]));
+      .send(success("item updated successfully", items[index]));
   } catch (error: any) {
-    console.error("Error updating product:", error);
+    console.error("Error updating item:", error);
     return res
       .status(HTTP_STATUS.INTERNAL_SERVER_ERROR)
       .send(failure("Internal Server Error", error));
