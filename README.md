@@ -20,6 +20,8 @@ A simple RESTful API built with **TypeScript**, **Express**, and **Node.js** to 
 
 ```bash
 git clone https://github.com/Abir-Al-Arafat/ray-advertising.git
+```
+```bash
 cd ray-advertising
 ```
 
